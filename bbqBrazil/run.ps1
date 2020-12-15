@@ -5,11 +5,11 @@ $contentBody = $Request.RawBody | ConvertFrom-Json
 $nameNotePropertie = ($contentBody | get-member -Name Name -MemberType NoteProperty).Name
 $qtdPeopleNotePropertie =  ($contentBody | get-member -Name QtdPeople -MemberType NoteProperty).Name
 
-if (($null -ne $Request.headers.bugget) -and ($null -ne $Request.RawBody) -and ($nameNotePropertie -match "Name") -and  ($qtdPeopleNotePropertie -match "QtdPeople") ) {
+if (($null -ne $Request.headers.budget) -and ($null -ne $Request.RawBody) -and ($nameNotePropertie -match "Name") -and  ($qtdPeopleNotePropertie -match "QtdPeople") ) {
     Write-Host "Init Process"
     $event = New-Object Event
     $event.Familys = $contentBody
-    $event.bugget = $Request.headers.bugget
+    $event.budget = $Request.headers.budget
     [int]$totalPeople = ($event.Familys.QtdPeople | Measure-Object -Sum | select Sum).Sum
     $perPeople = [math]::Round($event.CostPerPeople($totalPeople), 2)
     $WholeFamily = $event.WholeFamily($perPeople)

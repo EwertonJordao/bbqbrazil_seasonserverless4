@@ -20,10 +20,10 @@ class Family {
     [int]$QtdPeople
 }
 class Event {
-    [double]$bugget
+    [double]$budget
     [Family[]]$Familys=[Family]::new()
     [double] CostPerPeople($total){
-      return $this.bugget / $total
+      return $this.budget / $total
     }
     [double[]] WholeFamily([double]$costPerPeople){
         return @($this.Familys.ForEach( {$costPerPeople * $_.QtdPeople} ))
